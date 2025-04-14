@@ -10,8 +10,8 @@ This file tracks the progress of tasks and subtasks from tasks.md.
 - ✅ Task 3: Implement Real AI Integration - COMPLETED
 
 **Optional Tasks (Suggested Tests):**
-- ⬜ Task 1: Add Automated Tests - Not started
-- ⬜ Task 2: Enhance Manual Test Scenarios - Not started
+- ✅ Task 1: Add Automated Tests - Completed
+- ✅ Task 2: Enhance Manual Test Scenarios - Completed
 - ⬜ Task 3: Post-AI Implementation Testing - Not started
 
 ## Git Workflow Guidelines
@@ -128,17 +128,21 @@ Each task should be implemented in a separate branch following this pattern:
 5. Add screen area edge cases (Subtask 2.4)
 6. Final review and documentation
 
-- [ ] Subtask 2.1: Refine Accessibility Testing (AC-02)
-  - Status: Not started
+- [x] Subtask 2.1: Refine Accessibility Testing (AC-02)
+  - Status: Completed
+  - Result: Added comprehensive accessibility testing scenarios for keyboard navigation (AC-01) and screen reader compatibility (AC-02)
 
-- [ ] Subtask 2.2: Add Edge Case Image Upload Tests (UI-06, UI-07)
-  - Status: Not started
+- [x] Subtask 2.2: Add Edge Case Image Upload Tests (UI-06, UI-07)
+  - Status: Completed
+  - Result: Added test scenarios for unusual image dimensions (UI-06) and unusual image content (UI-07)
 
-- [ ] Subtask 2.3: Add Network Interruption Test (VP-04)
-  - Status: Not started
+- [x] Subtask 2.3: Add Network Interruption Test (VP-04)
+  - Status: Completed
+  - Result: Added test scenarios for network interruption during upload (VP-04a) and during visualization generation (VP-04b)
 
-- [ ] Subtask 2.4: Add Screen Area Edge Cases (SA-04, SA-05)
-  - Status: Not started
+- [x] Subtask 2.4: Add Screen Area Edge Cases (SA-04, SA-05)
+  - Status: Completed
+  - Result: Added test scenarios for complex shapes (SA-04) and multiple/overlapping areas (SA-05)
 
 ### Task 3: Post-AI Implementation Testing
 
