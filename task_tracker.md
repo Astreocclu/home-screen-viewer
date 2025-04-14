@@ -22,7 +22,7 @@ This file tracks the progress of implementing the tasks from the tasks.md file.
 - [x] 4.2. Add New Remote
 
 ## Task 5: Push Merged Code to New Repository
-- [ ] 5.1. Push Main Branch
+- [x] 5.1. Push Main Branch
 
 ## Task 6: Report Outcome
 - [ ] 6.1. Confirm Success
