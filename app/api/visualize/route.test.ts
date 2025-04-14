@@ -32,7 +32,10 @@ jest.mock('next/server', () => ({
 }));
 
 // Import the route handler after mocking
-let POST: any;
+// Define a type for the POST handler based on Next.js API route handlers
+type RouteHandler = (request: Request) => Promise<Response>;
+
+let POST: RouteHandler | undefined;
 
 // Dynamically import the route to avoid the Request not defined error
 beforeAll(async () => {
@@ -249,5 +252,47 @@ describe('API Route: /api/visualize', () => {
       ],
       apiKey: 'test-api-key',
     });
+  });
+
+  it('should handle malformed JSON in request body', async () => {
+    // Skip if POST is not available yet
+    if (!POST) return;
+
+    // Create a request with malformed JSON
+    const request = new NextRequest('http://localhost:3000/api/visualize', {
+      method: 'POST',
+      // @ts-ignore - Intentionally setting an invalid body for testing
+      body: '{malformed-json',
+    });
+
+    // Call the API route
+    const response = await POST(request);
+    const data = await response.json();
+
+    // Verify response
+    expect(response.status).toBe(500);
+    expect(data.error).toBeDefined();
+    expect(generateVisualization).not.toHaveBeenCalled();
+  });
+
+  it('should handle empty request body', async () => {
+    // Skip if POST is not available yet
+    if (!POST) return;
+
+    // Create a request with empty body
+    const request = new NextRequest('http://localhost:3000/api/visualize', {
+      method: 'POST',
+      // @ts-ignore - Intentionally setting an empty body for testing
+      body: '',
+    });
+
+    // Call the API route
+    const response = await POST(request);
+    const data = await response.json();
+
+    // Verify response
+    expect(response.status).toBe(400);
+    expect(data.error).toBeDefined();
+    expect(generateVisualization).not.toHaveBeenCalled();
   });
 });

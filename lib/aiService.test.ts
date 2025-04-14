@@ -43,7 +43,7 @@ describe('aiService', () => {
       const mockResponse = {
         data: [{ url: 'https://example.com/generated-image.jpg' }]
       };
-      
+
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
         json: jest.fn().mockResolvedValueOnce(mockResponse)
@@ -86,7 +86,7 @@ describe('aiService', () => {
       const mockResponse = {
         data: [{ url: 'https://example.com/generated-image.jpg' }]
       };
-      
+
       (fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
         json: jest.fn().mockResolvedValueOnce(mockResponse)
@@ -201,6 +201,94 @@ describe('aiService', () => {
         error: 'Invalid data URL format',
       });
       expect(fetch).not.toHaveBeenCalled();
+    });
+
+    it('should handle empty response from API', async () => {
+      // Mock empty API response
+      (fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce({})
+      });
+
+      const result = await generateVisualization({
+        originalImageBase64: validImageBase64,
+        apiKey: validApiKey,
+      });
+
+      // Verify the result contains the error
+      expect(result).toEqual({
+        success: false,
+        error: 'No image was generated',
+      });
+    });
+
+    it('should handle malformed JSON response', async () => {
+      // Mock API response with invalid JSON
+      (fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockRejectedValueOnce(new Error('Invalid JSON'))
+      });
+
+      const result = await generateVisualization({
+        originalImageBase64: validImageBase64,
+        apiKey: validApiKey,
+      });
+
+      // Verify the result contains the error
+      expect(result).toEqual({
+        success: false,
+        error: 'Invalid JSON',
+      });
+    });
+
+    it('should handle multiple screen areas correctly', async () => {
+      // Mock successful API response
+      const mockResponse = {
+        data: [{ url: 'https://example.com/generated-image.jpg' }]
+      };
+
+      (fetch as jest.Mock).mockResolvedValueOnce({
+        ok: true,
+        json: jest.fn().mockResolvedValueOnce(mockResponse)
+      });
+
+      // Create multiple screen areas
+      const multipleScreenAreas: ScreenArea[] = [
+        {
+          id: 'area1',
+          points: [
+            { x: 10, y: 10 },
+            { x: 100, y: 10 },
+            { x: 100, y: 100 },
+            { x: 10, y: 100 }
+          ]
+        },
+        {
+          id: 'area2',
+          points: [
+            { x: 200, y: 200 },
+            { x: 300, y: 200 },
+            { x: 300, y: 300 },
+            { x: 200, y: 300 }
+          ]
+        }
+      ];
+
+      const result = await generateVisualization({
+        originalImageBase64: validImageBase64,
+        screenAreas: multipleScreenAreas,
+        apiKey: validApiKey,
+      });
+
+      // Parse the request body to verify its contents
+      const requestBody = JSON.parse((fetch as jest.Mock).mock.calls[0][1].body);
+      expect(requestBody.prompt).toContain('2 marked areas');
+
+      // Verify the result
+      expect(result).toEqual({
+        success: true,
+        imageUrl: 'https://example.com/generated-image.jpg',
+      });
     });
   });
 });

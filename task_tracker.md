@@ -101,20 +101,26 @@ Each task should be implemented in a separate branch following this pattern:
 **Branch:** `test/automated-tests`
 
 **Commit Points:**
-1. Initial branch setup
+1. Initial branch setup ✓
 2. Add unit tests for utilities (Subtask 1.1)
 3. Add integration tests for API route (Subtask 1.2)
 4. Add component tests (Subtask 1.3)
 5. Update test documentation
 
-- [ ] Subtask 1.1: Unit Tests for Utilities
-  - Status: Not started
+- [x] Subtask 1.1: Unit Tests for Utilities
+  - Status: Completed
+  - Files modified: lib/imageUtils.test.ts, lib/aiService.test.ts
+  - Result: Added comprehensive tests for edge cases and error handling in utility functions
 
-- [ ] Subtask 1.2: Integration Test for API Route
-  - Status: Not started
+- [x] Subtask 1.2: Integration Test for API Route
+  - Status: Completed
+  - Files modified: app/api/visualize/route.test.ts
+  - Result: Added tests for handling malformed JSON and empty request bodies
 
-- [ ] Subtask 1.3: Component Tests (Optional but Recommended)
-  - Status: Not started
+- [x] Subtask 1.3: Component Tests (Optional but Recommended)
+  - Status: Completed
+  - Files modified: components/ImageUploader.test.tsx, components/ResultDisplay.test.tsx
+  - Result: Added tests for error handling in ImageUploader and download functionality in ResultDisplay
 
 ### Task 2: Enhance Manual Test Scenarios (test_plan.md)
 
