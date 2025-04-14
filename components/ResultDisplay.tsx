@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface ResultDisplayProps {
   originalImageUrl: string;
   generatedImageUrl: string | null;
@@ -17,27 +19,29 @@ export default function ResultDisplay({
   return (
     <div className="w-full">
       <h2 className="text-xl font-semibold mb-4">Results</h2>
-      
+
       {error && (
         <div className="p-4 mb-4 bg-red-100 text-red-700 rounded-lg" role="alert">
           <p className="font-medium">Error:</p>
           <p>{error}</p>
         </div>
       )}
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Original Image */}
         <div className="flex flex-col">
           <h3 className="text-lg font-medium mb-2">Original Image</h3>
           <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-gray-300">
-            <img
+            <Image
               src={originalImageUrl}
               alt="Original house image"
-              className="object-contain w-full h-full"
+              className="object-contain"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         </div>
-        
+
         {/* Generated Image */}
         <div className="flex flex-col">
           <h3 className="text-lg font-medium mb-2">With Screens</h3>
@@ -48,10 +52,12 @@ export default function ResultDisplay({
                 <span className="sr-only">Loading...</span>
               </div>
             ) : generatedImageUrl ? (
-              <img
+              <Image
                 src={generatedImageUrl}
                 alt="House with screens visualization"
-                className="object-contain w-full h-full"
+                className="object-contain"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center text-gray-500">
@@ -61,7 +67,7 @@ export default function ResultDisplay({
           </div>
         </div>
       </div>
-      
+
       {generatedImageUrl && (
         <div className="mt-6">
           <a

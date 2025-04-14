@@ -1,4 +1,5 @@
 import { useState, useRef, ChangeEvent } from 'react';
+import Image from 'next/image';
 
 interface ImageUploaderProps {
   onImageUpload: (imageDataUrl: string) => void;
@@ -100,10 +101,12 @@ export default function ImageUploader({
         <div className="w-full">
           <h3 className="text-lg font-medium mb-2">Preview</h3>
           <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-gray-300">
-            <img
+            <Image
               src={previewUrl}
               alt="Preview of uploaded image"
-              className="object-contain w-full h-full"
+              className="object-contain"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         </div>

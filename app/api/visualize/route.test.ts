@@ -13,7 +13,7 @@ jest.mock('next/server', () => ({
     method: string;
     private body: string;
 
-    constructor(url: string, options: any = {}) {
+    constructor(url: string, options: Record<string, unknown> = {}) {
       this.url = url;
       this.method = options.method || 'GET';
       this.body = options.body || '{}';
@@ -24,7 +24,7 @@ jest.mock('next/server', () => ({
     }
   },
   NextResponse: {
-    json: (data: any, options: any = {}) => ({
+    json: (data: unknown, options: Record<string, unknown> = {}) => ({
       status: options.status || 200,
       json: async () => data,
     }),

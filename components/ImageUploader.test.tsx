@@ -36,12 +36,12 @@ describe('ImageUploader', () => {
     const originalFileReader = window.FileReader;
     const mockFileReaderInstance = {
       readAsDataURL: jest.fn(),
-      onload: null as any,
-      onerror: null as any,
+      onload: null as unknown as (event: ProgressEvent<FileReader>) => void,
+      onerror: null as unknown as (event: ProgressEvent<FileReader>) => void,
       result: 'data:image/jpeg;base64,test123',
     };
 
-    window.FileReader = jest.fn(() => mockFileReaderInstance) as any;
+    window.FileReader = jest.fn(() => mockFileReaderInstance) as unknown as typeof FileReader;
 
     render(<ImageUploader onImageUpload={mockOnImageUpload} />);
 
@@ -55,7 +55,7 @@ describe('ImageUploader', () => {
 
     // Simulate FileReader onload
     if (mockFileReaderInstance.onload) {
-      mockFileReaderInstance.onload({ target: mockFileReaderInstance } as any);
+      mockFileReaderInstance.onload({ target: mockFileReaderInstance } as unknown as ProgressEvent<FileReader>);
     }
 
     // Check if onImageUpload was called with the correct data URL

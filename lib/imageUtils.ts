@@ -26,7 +26,7 @@ export function isValidImageDataUrl(dataUrl: string): boolean {
     atob(base64Content);
 
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -45,7 +45,7 @@ export function getImageFormatFromDataUrl(dataUrl: string): string | null {
     if (!matches || matches.length < 2) return null;
 
     return matches[1].toLowerCase();
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -67,7 +67,7 @@ export function getImageSizeFromDataUrl(dataUrl: string): number {
     const approximateSize = Math.floor((base64Data.length * 3) / 4);
 
     return approximateSize;
-  } catch (error) {
+  } catch {
     return -1;
   }
 }
