@@ -18,8 +18,8 @@ This file tracks the progress of implementing the tasks from the tasks.md file.
 - [x] 3.4. Verify Final State
 
 ## Task 4: Update Remote Repository Link
-- [ ] 4.1. Remove Old Remote
-- [ ] 4.2. Add New Remote
+- [x] 4.1. Remove Old Remote
+- [x] 4.2. Add New Remote
 
 ## Task 5: Push Merged Code to New Repository
 - [ ] 5.1. Push Main Branch
