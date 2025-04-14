@@ -12,7 +12,7 @@ This file tracks the progress of implementing the tasks from the tasks.md file.
 - [x] 2.3. Update Main Branch (if applicable)
 
 ## Task 3: Merge Feature Branches into Main Locally
-- [ ] 3.1. Merge Automated Tests Branch
+- [x] 3.1. Merge Automated Tests Branch
 - [ ] 3.2. Merge Manual Test Scenarios Branch
 - [ ] 3.3. Merge Post-AI Implementation Branch
 - [ ] 3.4. Verify Final State
