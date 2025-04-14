@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import ScreenAreaSelector from './ScreenAreaSelector';
 
 // Mock canvas methods
-const mockGetContext = jest.fn();
 const mockClearRect = jest.fn();
 const mockBeginPath = jest.fn();
 const mockMoveTo = jest.fn();
@@ -26,7 +25,7 @@ const mockContext = {
 };
 
 // Mock HTMLCanvasElement
-HTMLCanvasElement.prototype.getContext = jest.fn(() => mockContext as any);
+HTMLCanvasElement.prototype.getContext = jest.fn(() => mockContext as unknown as CanvasRenderingContext2D);
 
 describe('ScreenAreaSelector', () => {
   const mockImageUrl = 'https://example.com/test-image.jpg';

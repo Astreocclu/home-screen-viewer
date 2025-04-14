@@ -13,32 +13,32 @@ export default function TestPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [apiKey, setApiKey] = useState<string>('');
-  
+
   const handleImageUpload = (imageDataUrl: string) => {
     setOriginalImage(imageDataUrl);
     setScreenAreas([]);
     setGeneratedImage(null);
     setError(null);
   };
-  
+
   const handleAreasSelected = (areas: ScreenArea[]) => {
     setScreenAreas(areas);
   };
-  
+
   const handleGenerateVisualization = async () => {
     if (!originalImage) {
       setError('Please upload an image first');
       return;
     }
-    
+
     if (!apiKey) {
       setError('Please enter an API key');
       return;
     }
-    
+
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const response = await fetch('/api/visualize', {
         method: 'POST',
@@ -51,30 +51,31 @@ export default function TestPage() {
           apiKey,
         }),
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.error || 'Failed to generate visualization');
       }
-      
+
       setGeneratedImage(data.imageUrl);
-    } catch (err: any) {
-      setError(err.message || 'An unexpected error occurred');
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <main className="flex min-h-screen flex-col items-center p-8 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-8">Home Screen Visualizer - Test Page</h1>
-      
+
       <div className="w-full mb-8">
         <h2 className="text-xl font-semibold mb-4">1. Upload an Image</h2>
         <ImageUploader onImageUpload={handleImageUpload} />
       </div>
-      
+
       {originalImage && (
         <div className="w-full mb-8">
           <h2 className="text-xl font-semibold mb-4">2. Select Window Areas (Optional)</h2>
@@ -84,11 +85,11 @@ export default function TestPage() {
           />
         </div>
       )}
-      
+
       {originalImage && (
         <div className="w-full mb-8">
           <h2 className="text-xl font-semibold mb-4">3. Generate Visualization</h2>
-          
+
           <div className="flex flex-col gap-4 mb-4">
             <div>
               <label htmlFor="apiKey" className="block text-sm font-medium mb-1">
@@ -103,7 +104,7 @@ export default function TestPage() {
                 placeholder="Enter your OpenAI API key"
               />
             </div>
-            
+
             <button
               type="button"
               onClick={handleGenerateVisualization}
@@ -115,7 +116,7 @@ export default function TestPage() {
           </div>
         </div>
       )}
-      
+
       {originalImage && (
         <div className="w-full">
           <ResultDisplay
